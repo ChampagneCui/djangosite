@@ -12,5 +12,8 @@ def login(requests):
         pwd  = requests.POST.get('passwd',None)
         if user == 'root' and pwd == '123':
             return credits('www.baidu.com')
+        else:
+            #用户密码不匹配
+
     else:
         return render(requests,'login.html')
