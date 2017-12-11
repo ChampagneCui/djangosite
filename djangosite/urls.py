@@ -17,8 +17,10 @@ from django.contrib import admin
 from django.urls import path
 from django.conf.urls import url
 from django.conf.urls import include
+from app1 import views
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    path('app1/', include('app1.urls')),
+    path('^login.html/',views.login),
+    path('^admin/', admin.site.urls),
+    path('^app1/', include('app1.urls')),
 ]

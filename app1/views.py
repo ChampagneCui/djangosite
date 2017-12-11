@@ -5,3 +5,12 @@ from django.http import HttpResponse
 
 def home(requests):
     return HttpResponse('Hello')
+
+def login(requests):
+    if requests.method == "POST":
+        user = requests.POST.get('user',None)
+        pwd  = requests.POST.get('passwd',None)
+        if user == 'root' and pwd == '123':
+            return credits('www.baidu.com')
+    else:
+        return render(requests,'login.html')
