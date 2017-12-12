@@ -1,19 +1,19 @@
-from django.shortcuts import render
+from django.shortcuts import render,redirect
 from django.http import HttpResponse
 
 # Create your views here.
 
-def home(requests):
-    return HttpResponse('Hello')
+def home(request):
+    return render(request,'home.html')
 
-def login(requests):
-    if requests.method == "POST":
-        user = requests.POST.get('user',None)
-        pwd  = requests.POST.get('passwd',None)
+def login(request):
+    error_msg=''
+    if request.method == "POST":
+        user = request.POST.get('user',None)
+        pwd  = request.POST.get('passwd',None)
         if user == 'root' and pwd == '123':
-            return credits('www.baidu.com')
+            return render(request,'home.html')
         else:
             #用户密码不匹配
-
-    else:
-        return render(requests,'login.html')
+            error_msg='用户名或密码错误'
+    return render(request,'login.html',{'error_msg':error_msg})

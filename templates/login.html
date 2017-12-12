@@ -5,10 +5,10 @@
     <title>Login</title>
 </head>
 <body>
-    <form action="/login" method="post">
+    <form action="/login/" method="post">
         <p>
-            <label for="username">用户名</label>
-            <input id="username" name="user" type="text">
+            <label for="user">用户名</label>
+            <input id="user" name="user" type="text">
         </p>
         <p>
             <label for="passwd">密码</label>
@@ -16,8 +16,9 @@
         </p>
         <p>
             <input type="submit" value="提交">
-            <span style="color:red">{{  }}</span>
+            <span style="color:red;">{{ error_msg }}</span>
         </p>
     </form>
+    <script src="/static/jquery-1.11.1.min.js"></script>
 </body>
 </html>
