@@ -5,6 +5,19 @@
     <title>Home</title>
 </head>
 <body>
-    <h1>Hello</h1>
+    <div>
+        <h1>hello</h1>
+    </div>
+    <div>
+        <table>
+            {%  for i in host_list %}
+                <tr>
+                    <td>{{ i.hostname }}</td>>
+                    <td>{{ i.ip }}</td>
+                    <td>{{ i.description }}</td>
+                </tr>
+            {% endfor %}
+        </table>
+     </div>
 </body>
 </html>
