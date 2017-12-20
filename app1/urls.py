@@ -19,6 +19,5 @@ from app1 import views
 
 
 urlpatterns = [
-    path(r'', views.home),
     path(r'index/', views.index),
 ]
