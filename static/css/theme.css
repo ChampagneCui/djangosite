@@ -1700,4 +1700,21 @@ filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#fff5f5f5', end
 	-moz-border-radius: 0 0 3px 0;
 	border-radius: 0 0 3px 0
 }
+
+.hide {
+	display: none;
+}
+
+
+.duihuakuang {
+    background-color: white;
+    z-index: 15;
+    position: fixed;
+    width: 400px;
+    height: 300px;
+    top: 50%;
+    left: 50%;
+    margin-top: -150px;
+    margin-left: -200px;
+}
 @media(max-width:767px){body{padding:0!important}.wrapper{padding:20px 15px}}
