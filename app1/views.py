@@ -3,8 +3,6 @@ from django.http import HttpResponse
 from app1 import models
 
 # Create your views here.
-
-
 def index(request):
     if request.method == "GET":
         host_list = models.Hosts.objects.all()
@@ -18,6 +16,19 @@ def index(request):
         newobj=models.Hosts(hostname=hostname,ip=ip,platform=platform,description=description)
         newobj.save()
         return redirect('/app1/index/')
+
+def user(request):
+    if request.method == "GET":
+        user_list = models.Accounts.objects.all()
+        group_list = models.Group.objects.all()
+        return render(request, 'user.html', {'user_list': user_list,'group_list':group_list})
+    elif request.method == "POST":
+        username=request.POST.get('name')
+        pwd=request.POST.get('pwd')
+        role=request.POST.get('role')
+        newobj=models.Accounts(username=username,password=pwd,role_id=role)
+        newobj.save()
+        return redirect('/app1/user/')
 
 
 def login(request):

@@ -20,4 +20,5 @@ from app1 import views
 
 urlpatterns = [
     path(r'index/', views.index),
+    path(r'user/',views.user),
 ]
