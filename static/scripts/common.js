@@ -233,4 +233,20 @@
         $("#pie-interactive").bind("plothover", pieHover);
         $("#pie-interactive").bind("plotclick", pieClick);
     }
+
 });
+
+$(".add1").click(addItem);
+$(".del1").click(delItem);
+$(".submit_item").click(function () {
+    $(".zhezhao").addClass("hide");
+    $(".duihuakuang").addClass("hide");
+});
+function addItem() {
+    $(".duihuakuang-add").removeClass("hide");
+    $(".zhezhao").removeClass("hide");
+}
+function delItem() {
+    $(".duihuakuang-del").removeClass("hide");
+    $(".zhezhao").removeClass("hide");
+}

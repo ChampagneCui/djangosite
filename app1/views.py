@@ -23,11 +23,15 @@ def user(request):
         group_list = models.Group.objects.all()
         return render(request, 'user.html', {'user_list': user_list,'group_list':group_list})
     elif request.method == "POST":
-        username=request.POST.get('name')
-        pwd=request.POST.get('pwd')
-        role=request.POST.get('role')
-        newobj=models.Accounts(username=username,password=pwd,role_id=role)
-        newobj.save()
+        if request.POST.get('func')=='add':
+            username=request.POST.get('name')
+            pwd=request.POST.get('pwd')
+            role=request.POST.get('role')
+            newobj=models.Accounts(username=username,password=pwd,role_id=role)
+            newobj.save()
+        elif request.POST.get('func')=='del':
+            id=request.POST.get('id')
+            models.Accounts.objects.filter(id=id).delete()
         return redirect('/app1/user/')
 
 

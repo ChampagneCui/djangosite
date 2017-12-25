@@ -13,6 +13,33 @@
             rel='stylesheet'>
     </head>
     <body>
+        <div class="zhezhao hide"></div>
+         <div class="duihuakuang duihuakuang-add hide">
+            <form action="/app1/user/" method="post">
+                <input name="func" class="hide" value="add">
+                <p>UserName<input name="name" type="text" placeholder="用户名"  style="width:100px; "></p>
+                <p>Password<input name="pwd" type="text" placeholder="密码" style="width:100px;"></p>
+                <p>Role<select name="role" style="width: 180px; text-align: center;">
+                    {% for i in group_list %}
+                        <option value={{ i.id }}>{{ i.name }}</option>
+                    {% endfor %}
+                </select></p>
+                <p><input type="submit" class="submit_item" value="添加">
+                <input type="button" class="submit_item" value="取消"></p>
+            </form>
+        </div>
+        <div class="duihuakuang duihuakuang-del hide">
+            <form action="/app1/user/" method="post">
+                <input name="func" class="hide" value="del">
+                <p>用户名<select name="id" style="width: 180px; text-align: center;">
+                    {% for i in user_list %}
+                        <option value={{ i.id }}>{{ i.username }}</option>
+                    {% endfor %}
+                </select></p>
+                <p><input type="submit" class="submit_item" value="删除">
+                <input type="button" class="submit_item" value="取消"></p>
+            </form>
+        </div>
         <div class="navbar navbar-fixed-top">
             <div class="navbar-inner">
                 <div class="container">
@@ -66,19 +93,8 @@
                             <div class="module">
                             <div>
                                 <input type="button" value="Add User" class="add1" style="margin-left: 30px;">
+                                <input type="button" value="Del User" class="del1" style="margin-left: 30px;">
                             </div>
-                                <div class="duihuakuang hide">
-                                    <form action="/app1/user/" method="post">
-                                        <input name="name" type="text" placeholder="用户名"  style="width:100px; ">
-                                        <input name="pwd" type="text" placeholder="密码" style="width:100px;">
-                                        <select name="role">
-                                            {% for i in group_list %}
-                                                <option value={{ i.id }}>{{ i.name }}</option>
-                                            {% endfor %}
-                                        </select>
-                                        <input type="submit" class="submit_item" value="添加">
-                                    </form>
-                                </div>
                                 <div class="module-head">
                                     <h3>DataTables</h3>
                                 </div>
@@ -121,13 +137,7 @@
         <script src="/static/scripts/flot/jquery.flot.resize.js" type="text/javascript"></script>
         <script src="/static/scripts/datatables/jquery.dataTables.js" type="text/javascript"></script>
         <script src="/static/scripts/common.js" type="text/javascript"></script>
-            <script>
-                $(".add1").click(addItem);
-                $(".submit_item").click(function () {
-                    $(".duihuakuang").addClass("hide");
-                });
-                function addItem() {
-                    $(".duihuakuang").removeClass("hide");
-        }
-            </script>
+        <script>
+            $(".duihuakuang p").addClass("mid");
+        </script>
     </body>
