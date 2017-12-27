@@ -11,8 +11,42 @@
         <link type="text/css" href="/static/images/icons/css/font-awesome.css" rel="stylesheet">
         <link type="text/css" href='http://fonts.googleapis.com/css?family=Open+Sans:400italic,600italic,400,600'
             rel='stylesheet'>
+        <style>
+            .left-style {
+                text-align: left;
+                margin-left: 30px;
+            }
+        </style>
     </head>
     <body>
+        <div class="zhezhao hide"></div>
+        <div class="duihuakuang duihuakuang-add hide">
+            <form action="/app1/index/" method="post">
+                <input name="func" class="hide" value="add">
+                <p>主机名<input name="hostname" type="text" placeholder="主机名"  style="width:100px; "></p>
+                <p>ip<input name="ip" type="text" placeholder="ip" style="width:100px;"></p>
+                <p>操作系统<input name="platform" type="text" placeholder="操作系统"></p>
+                <p>描述<input name="des" type="text" placeholder="描述"></p>
+                <p><input type="submit"  class="submit_item" value="添加">
+                <input type="button" class="submit_item" value="取消"></p>
+            </form>
+        </div>
+        <div class="del hide">
+            <form action="/app1/index/" method="post">
+                <input name="func" class="hide" value="del">
+                <input name="id" type="text" class="del-id">
+            </form>
+        </div>
+        <div class="update hide">
+            <form action="/app1/index/" method="post">
+                <input name="func" value="update">
+                <input name="id" type="text">
+                <input name="hostname" type="text">
+                <input name="ip" type="text">
+                <input name="platform" type="text">
+                <input name="des" type="text">
+            </form>
+        </div>
         <div class="navbar navbar-fixed-top">
             <div class="navbar-inner">
                 <div class="container">
@@ -82,19 +116,10 @@
                                 </div>
                             </div>
                             <div class="module">
-                                <div>
-                                    <form action="/app1/index/" method="post">
-                                        <span style="margin-left: 10px">新增</span>
-                                        <input name="hostname" type="text" placeholder="主机名"  style="width:100px; ">
-                                        <input name="ip" type="text" placeholder="ip" style="width:100px;">
-                                        <input name="platform" type="text" placeholder="操作系统">
-                                        <input name="des" type="text" placeholder="描述">
-                                        <input type="submit" value="添加">
-                                    </form>
-                                </div>
                                 <div class="module-head">
-                                    <h3>
+                                    <h3 style="display: inline;">
                                         DataTables</h3>
+                                    <input type="button" value="添加" class="add2" style="margin-left: 30px;">
                                 </div>
                                 <div class="module-body table">
                                     <table cellpadding="0" cellspacing="0" border="0" class="datatable-1 table table-bordered table-striped	 display"
@@ -105,15 +130,23 @@
                                                 <th>ＩＰ</th>
                                                 <th>操作系统</th>
                                                 <th>描述</th>
+                                                <th style="width: 150px; border-left: hidden"></th>
                                             </tr>
                                         </thead>
                                         <tbody>
                                             {% for i in host_list %}
                                                 <tr>
-                                                    <td>{{ i.hostname }}</td>>
-                                                    <td>{{ i.ip }}</td>
-                                                    <td>{{ i.platform }}</td>
-                                                    <td>{{ i.description }}</td>
+                                                    <td class="iid hide">{{ i.id }}</td>
+                                                    <td class="hostname">{{ i.hostname }}</td>>
+                                                    <td class="ip">{{ i.ip }}</td>
+                                                    <td class="platform">{{ i.platform }}</td>
+                                                    <td class="description">{{ i.description }}</td>
+                                                    <td style="width: 150px; border-left: hidden">
+                                                        <input type="button" value="删除" class="del2" >
+                                                        <input type="button" value="修改" class="update2">
+                                                        <input type="button" value="确认" class="hide queren">
+                                                        <input type="button" value="取消" class="hide quxiao">
+                                                    </td>
                                                 </tr>
                                             {% endfor %}
                                         </tbody>
@@ -139,4 +172,39 @@
         <script src="/static/scripts/flot/jquery.flot.resize.js" type="text/javascript"></script>
         <script src="/static/scripts/datatables/jquery.dataTables.js" type="text/javascript"></script>
         <script src="/static/scripts/common.js" type="text/javascript"></script>
+        <script>
+            $(".duihuakuang p").addClass("left-style");
+            $(".add2").click(addItem);
+            $(".del2").click(delItem);
+            $(".update2").click(upItem);
+            $(".queren").click(queren);
+            $(".submit_item").click(function () {
+                $(".zhezhao").addClass("hide");
+                $(".duihuakuang").addClass("hide");
+            });
+            $(".quxiao").click(function () {
+                location.reload()
+            });
+            function addItem() {
+                $(".duihuakuang-add").removeClass("hide");
+                $(".zhezhao").removeClass("hide");
+            }
+            function delItem() {
+                var v=$(this).parent().parent().children(".iid").text();
+                $(".del-id").attr("value",v).parent().submit();
+            }
+            function upItem() {
+                $(this).addClass("hide").prev().addClass("hide").parent().parent().attr("contentEditable", "true");
+                $(this).next().removeClass('hide').next().removeClass('hide');
+            }
+            function queren() {
+                var f=$(this).parent().parent();
+                var id=f.children(".iid").text();
+                var hostname=f.children(".hostname").text();
+                var ip=f.children(".ip").text();
+                var platform=f.children(".platform").text();
+                var description=f.children(".description").text();
+                $(".update").children().children("input:first").next().attr("value",id).next().attr("value",hostname).next().attr("value",ip).next().attr("value",platform).next().attr("value",description).parent().submit();
+            }
+        </script>
     </body>
