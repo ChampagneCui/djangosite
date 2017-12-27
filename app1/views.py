@@ -32,6 +32,14 @@ def user(request):
         elif request.POST.get('func')=='del':
             id=request.POST.get('id')
             models.Accounts.objects.filter(id=id).delete()
+        elif request.POST.get('func')=='update':
+            id = request.POST.get('id')
+            pwd = request.POST.get('pwd')
+            role = request.POST.get('role')
+            newobj=models.Accounts.objects.filter(id=id)
+            if pwd != '':
+                newobj.update(password=pwd)
+            newobj.update(role_id=role)
         return redirect('/app1/user/')
 
 
