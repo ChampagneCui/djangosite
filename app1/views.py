@@ -7,15 +7,17 @@ from app1 import models
 def index(request):
 	if request.method == "GET":
 		host_list = models.Hosts.objects.all()
-		return render(request, 'index.html', {'host_list': host_list})
+		hgroup_list = models.HGroup.objects.all()
+		return render(request, 'index.html', {'host_list': host_list,'hgroup_list': hgroup_list})
 	elif request.method == "POST":
 		if request.POST.get('func') == 'add':
 			hostname = request.POST.get('hostname')
+			hgroup_id = request.POST.get('hgroup_id')
 			ip = request.POST.get('ip')
 			platform = request.POST.get('platform')
 			description = request.POST.get('des')
 			print(hostname, ip, platform, description)
-			newobj = models.Hosts(hostname=hostname, ip=ip, platform=platform, description=description)
+			newobj = models.Hosts(hostname=hostname,group_id=hgroup_id,ip=ip, platform=platform, description=description)
 			newobj.save()
 		elif request.POST.get('func') == 'del':
 			id = request.POST.get('id')
@@ -23,15 +25,16 @@ def index(request):
 		elif request.POST.get('func') == 'update':
 			id = request.POST.get('id')
 			hostname = request.POST.get('hostname')
+			hgroup_id = request.POST.get('hgroup_id')
 			ip = request.POST.get('ip')
 			platform = request.POST.get('platform')
 			description = request.POST.get('des')
-			newobj = models.Hosts.objects.get(id=id)
-			newobj.hostname=hostname
-			newobj.ip=ip
-			newobj.platform=platform
-			newobj.description=description
-			newobj.save()
+			newobj=models.Hosts.objects.filter(id=id)
+			newobj.update(hostname=hostname)
+			newobj.update(group_id = hgroup_id)
+			newobj.update(ip=ip)
+			newobj.update(platform=platform)
+			newobj.update(description=description)
 		return redirect('/app1/index/')
 
 

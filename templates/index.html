@@ -24,6 +24,11 @@
             <form action="/app1/index/" method="post">
                 <input name="func" class="hide" value="add">
                 <p>主机名<input name="hostname" type="text" placeholder="主机名"  style="width:100px; "></p>
+                <p>主机组<select name="hgroup_id" style="width: 180px; text-align: center;">
+                    {% for i in hgroup_list %}
+                        <option value={{ i.id }}>{{ i.name }}</option>
+                    {% endfor %}
+                </select></p>
                 <p>ip<input name="ip" type="text" placeholder="ip" style="width:100px;"></p>
                 <p>操作系统<input name="platform" type="text" placeholder="操作系统"></p>
                 <p>描述<input name="des" type="text" placeholder="描述"></p>
@@ -42,6 +47,7 @@
                 <input name="func" value="update">
                 <input name="id" type="text">
                 <input name="hostname" type="text">
+                <input name="hgroup_id" type="text">
                 <input name="ip" type="text">
                 <input name="platform" type="text">
                 <input name="des" type="text">
@@ -127,6 +133,7 @@
                                         <thead>
                                             <tr>
                                                 <th>主机名</th>
+                                                <th>主机组</th>
                                                 <th>ＩＰ</th>
                                                 <th>操作系统</th>
                                                 <th>描述</th>
@@ -138,6 +145,14 @@
                                                 <tr>
                                                     <td class="iid hide">{{ i.id }}</td>
                                                     <td class="hostname">{{ i.hostname }}</td>>
+                                                    <td class="hgc hide">
+                                                        <select name="hgroup_id" style="width: 180px; text-align: center;" class="hgroup_id">
+                                                            {% for i in hgroup_list %}
+                                                                <option  value={{ i.id }}>{{ i.name }}</option>
+                                                            {% endfor %}
+                                                        </select>
+                                                    </td>
+                                                    <td class="hgroup">{{ i.group.name }}</td>
                                                     <td class="ip">{{ i.ip }}</td>
                                                     <td class="platform">{{ i.platform }}</td>
                                                     <td class="description">{{ i.description }}</td>
@@ -196,15 +211,19 @@
             function upItem() {
                 $(this).addClass("hide").prev().addClass("hide").parent().parent().attr("contentEditable", "true");
                 $(this).next().removeClass('hide').next().removeClass('hide');
+                $(this).parent().parent().children(".hgroup").addClass("hide").prev().removeClass("hide");
             }
             function queren() {
                 var f=$(this).parent().parent();
                 var id=f.children(".iid").text();
                 var hostname=f.children(".hostname").text();
+                var hgroup_id=f.children(".hgc").children().children("option:selected").attr("value");
                 var ip=f.children(".ip").text();
                 var platform=f.children(".platform").text();
                 var description=f.children(".description").text();
-                $(".update").children().children("input:first").next().attr("value",id).next().attr("value",hostname).next().attr("value",ip).next().attr("value",platform).next().attr("value",description).parent().submit();
+                //console.log(f.children(".hgc").children().children("option:selected").attr("value"));
+                $(".update").children().children("input:first").next().attr("value",id).next().attr("value",hostname).next().attr("value",hgroup_id).next().attr("value",ip).next().attr("value",platform).next().attr("value",description).parent().submit();
+                //$(".update").children().children("input:first").next().attr("value",id).next().attr("value",hostname).next().attr("value",hgroup_id).next().attr("value",ip).next().attr("value",platform).next().attr("value",description).parent();
             }
         </script>
     </body>
