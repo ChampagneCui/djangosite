@@ -16,6 +16,9 @@
                 text-align: left;
                 margin-left: 30px;
             }
+            .editting {
+                border-color: #0e90d2;
+            }
         </style>
     </head>
     <body>
@@ -212,6 +215,7 @@
                 $(this).addClass("hide").prev().addClass("hide").parent().parent().attr("contentEditable", "true");
                 $(this).next().removeClass('hide').next().removeClass('hide');
                 $(this).parent().parent().children(".hgroup").addClass("hide").prev().removeClass("hide");
+                $(this).parent().parent().addClass("editting");
             }
             function queren() {
                 var f=$(this).parent().parent();
@@ -221,9 +225,7 @@
                 var ip=f.children(".ip").text();
                 var platform=f.children(".platform").text();
                 var description=f.children(".description").text();
-                //console.log(f.children(".hgc").children().children("option:selected").attr("value"));
                 $(".update").children().children("input:first").next().attr("value",id).next().attr("value",hostname).next().attr("value",hgroup_id).next().attr("value",ip).next().attr("value",platform).next().attr("value",description).parent().submit();
-                //$(".update").children().children("input:first").next().attr("value",id).next().attr("value",hostname).next().attr("value",hgroup_id).next().attr("value",ip).next().attr("value",platform).next().attr("value",description).parent();
             }
         </script>
     </body>
